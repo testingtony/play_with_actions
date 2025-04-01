@@ -5,7 +5,7 @@ on:
     tags:
       - '*'
 jobs:
-  Release a build:
+  Release-a-build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
