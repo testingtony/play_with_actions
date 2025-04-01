@@ -24,6 +24,8 @@ jobs:
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
           echo "Tag name from github.ref_name: ${{  github.ref_name }}"
       - name: Do a release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "Creating a release for tag $GITHUB_REF_NAME"
           gh release create $GITHUB_REF_NAME --generate-notes all.sh
