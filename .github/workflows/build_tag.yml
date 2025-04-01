@@ -26,6 +26,7 @@ jobs:
       - name: Build the files
         run: |
           arduino-cli compile oater -e
+          md5sum oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin | cut -f 1 -d " " > oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin.md5
 
       - name: Do a release
         env:
@@ -34,4 +35,4 @@ jobs:
           echo "Creating a release for tag $GITHUB_REF_NAME"
           echo "${{ github.token }}"
           echo "${{ secrets.GITHUB_TOKEN }}"
-          gh release create $GITHUB_REF_NAME --generate-notes oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin
+          gh release create $GITHUB_REF_NAME --generate-notes oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin.md5
