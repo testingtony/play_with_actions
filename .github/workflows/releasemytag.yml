@@ -33,3 +33,6 @@ jobs:
           echo "${{ github.token }}"
           echo "${{ secrets.GITHUB_TOKEN }}"
           gh release create $GITHUB_REF_NAME --generate-notes all.sh
+      - name: see if aws is installed
+        run: |
+          aws --region eu-west-1 dynamodb get-item --table binaries --key '{"sketch": {"S":"clock"}}'
