@@ -36,7 +36,13 @@ jobs:
           echo "${{ github.token }}"
           echo "${{ secrets.GITHUB_TOKEN }}"
           gh release create $GITHUB_REF_NAME --generate-notes oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin oater/build/esp8266.esp8266.d1_mini_clone/oater.ino.bin.md5
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
       - name: see if aws is installed
         run: |
-          aws --region eu-west-1 dynamodb get-item --table binaries --key '{"sketch": {"S":"clock"}}'
+          aws dynamodb get-item --table binaries --key '{"sketch": {"S":"clock"}}'
           echo "aws is installed"
